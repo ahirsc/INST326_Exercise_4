@@ -1,7 +1,7 @@
 """
 Driver: Maksym Kalinin/ Aline Hirsch
 Navigator: 
-Assignment: Template INST326
+Assignment: INST326 Exercise 4
 Date: 12_02_22
 
 Challenges Encountered: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
