@@ -10,16 +10,16 @@ Challenges Encountered: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import re
 import sys
 import argparse
-
+## Do we need parser?
 def parse_name(text:str):
     """
     This function will contain one parameter, text, a string representing a single line of the file.
     This function should use regular expressions in order to capture the first name and the last name of the person in question
     This function will return a tuple containing the first and the last names as strings
     """
-    first_name = ""
-    last_name = ""
-    return (first_name, last_name)
+    text = text.split(" ")
+    text = [text[0],text[1]]    
+    return tuple(text)
     
 def parse_address(text:str):
     """
@@ -27,11 +27,14 @@ def parse_address(text:str):
     This function should use regular expressions in order to capture the street, city and state of person in question
     This function will create and return an address object using the street, city and state identified.
     """
-    street = ""
-    city = ""
-    state = ""
+    
+    text = text.split(" ")
+  
+    street = text[2:-3]
+    city = text[-3]
+    state = text[-2]
 
-    address = (street, city, state)
+    address = [street,city,state]
     return address
 
 def parse_email(text:str):
@@ -43,15 +46,18 @@ def parse_email(text:str):
     email= ""
     return email
     
-class Address(street, city, state):
+class Address():
     """
     This class will have three attributes (street, city, state) that are created from the arguments that are passed in when an instance
     of address is created
     This class will not have any methods
     """
-    pass
+    def __init__(self, street, city, state):
+        self.street = street
+        self.city = city
+        self.state = state
 
-class Employee(first_name, last_name, address, email):
+class Employee():
     """
     ◦ This class will have 4 attributes (first_name, last_name, address, email).
         ▪ These attributes will all be created by passing in a row of the file when an instance of
@@ -64,10 +70,14 @@ class Employee(first_name, last_name, address, email):
         parameter of the init method of employee as an argument in the parse_email function call.
     ◦ This class will not have any methods.
     """
-    def __init__(parameter1, self):
-        pass
-    pass
-    
+    def __init__(self,text):
+        self.firstname = parse_name(text) [0]
+        self.lastname = parse_name(text) [1]
+        street = parse_address(text)[0]
+        city = parse_address(text)[1]
+        state = parse_address(text) [2]
+        self.address = Address(street, city, state)
+        #self.email = parse_email(text)
     
 def main(path):
     """
