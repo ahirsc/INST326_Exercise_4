@@ -29,7 +29,6 @@ def parse_address(text:str):
     """
     
     text = text.split(" ")
-  
     street = text[2:-3]
     street = " ".join(street)
     city = text[-3]
@@ -42,6 +41,7 @@ def parse_email(text:str):
     This function will contain one parameter, text, a string representing a single line of the file
     This function should use regular expressions in order to capture the email of the person in question
     This function will return the email identified.
+    https://www.emailregex.com/ for email regex
     """
     
     email = re.search(r"([a-zA-Z0-9_.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+)", text).group()
