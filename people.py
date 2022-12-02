@@ -31,9 +31,9 @@ def parse_address(text:str):
     text = text.split(" ")
   
     street = text[2:-3]
+    street = " ".join(street)
     city = text[-3]
     state = text[-2]
-
     address = [street,city,state]
     return address
 
@@ -43,7 +43,8 @@ def parse_email(text:str):
     This function should use regular expressions in order to capture the email of the person in question
     This function will return the email identified.
     """
-    email= ""
+    
+    email = re.search(r"([a-zA-Z0-9_.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+)", text).group()
     return email
     
 class Address():
@@ -73,11 +74,11 @@ class Employee():
     def __init__(self,text):
         self.firstname = parse_name(text) [0]
         self.lastname = parse_name(text) [1]
-        street = parse_address(text)[0]
-        city = parse_address(text)[1]
+        street = parse_address(text) [0]
+        city = parse_address(text) [1]
         state = parse_address(text) [2]
         self.address = Address(street, city, state)
-        #self.email = parse_email(text)
+        self.email = parse_email(text)
     
 def main(path):
     """
@@ -91,10 +92,15 @@ def main(path):
     ▪ Within the main, return the employee_list
     """
     employee_list = []
+    with open(path,"r") as file:
+        for text in file:
+            inst_employee = Employee(text)
+            employee_list.append(inst_employee)
+            
+    return employee_list
     
-    pass
 
-def parse_args(args_list):
+#def parse_args(args_list):
     """Takes a list of strings from the command prompt and passes them through as arguments
     
     Args:
@@ -128,13 +134,21 @@ if __name__ == "__main__":
     #It the script is being run as a module, the block of code under this will not be executed.
     #If the script is being run natively, the block of code below this will be executed.
     
-    arguments = parse_args(sys.argv[1:]) #Pass in the list of command line arguments to the parse_args function.
+    #arguments = parse_args(sys.argv[1:]) #Pass in the list of command line arguments to the parse_args function.
     
     #The returned object is an object with those command line arguments as attributes of an object.
     #We will pass both of these arguments into the main function.
     #Note that you do not need a main function, but you might find it helpfull.
     #You do want to make sure to have minimal code under the 'if __name__ == "__main__":' statement.
     
-    main(arguments.required, arguments.optional)
+   # main(arguments.required, arguments.optional)
 
-
+    
+    employee_list = main("people.txt")
+    for i in employee_list:
+        print("\n\tFirst name:   ",i.firstname)
+        print("\tLast name:    ",i.lastname)
+        print("\tAddress:      ",i.address.street)
+        print("\tCity:         ",i.address.city)
+        print("\tState:        ",i.address.state)
+        print("\tEmail:        ",i.email)
