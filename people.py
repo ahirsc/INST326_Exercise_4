@@ -75,11 +75,14 @@ class Employee():
     def __init__(self,text):
         self.firstname = parse_name(text) [0]
         self.lastname = parse_name(text) [1]
+        """
         street = parse_address(text) [0]
         city = parse_address(text) [1]
         state = parse_address(text) [2]
         self.address = Address(street, city, state)
+        """
         self.email = parse_email(text)
+        self.Address = parse_address(text)
     
 def main(path):
     """
@@ -150,7 +153,9 @@ if __name__ == "__main__":
     for i in employee_list:
         print("\n\tFirst name:   ",i.firstname)
         print("\tLast name:   ",i.lastname)
-        print("\tAddress:      ",i.address.street)
+        print("\tAddress:      ",i.Address)
+        """
         print("\tCity:         ",i.address.city)
         print("\tState:        ",i.address.state)
+        """
         print("\tEmail:        ",i.email)
