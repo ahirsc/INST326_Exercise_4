@@ -17,9 +17,10 @@ def parse_name(text:str):
     This function should use regular expressions in order to capture the first name and the last name of the person in question
     This function will return a tuple containing the first and the last names as strings
     """
-    text = text.split(" ")
-    text = [text[0],text[1]]    
-    return tuple(text)
+    first = re.search(r"(^\w+)",text).group()
+    last = re.search(r"\s(\w+.?(?=\s\d))",text).group()
+    names = (first,last)  
+    return names
     
 def parse_address(text:str):
     """
@@ -147,7 +148,7 @@ if __name__ == "__main__":
     employee_list = main("people.txt")
     for i in employee_list:
         print("\n\tFirst name:   ",i.firstname)
-        print("\tLast name:    ",i.lastname)
+        print("\tLast name:   ",i.lastname)
         print("\tAddress:      ",i.address.street)
         print("\tCity:         ",i.address.city)
         print("\tState:        ",i.address.state)
