@@ -99,15 +99,15 @@ def main(path):
             
     return employee_list
     
-
-#def parse_args(args_list):
-    """Takes a list of strings from the command prompt and passes them through as arguments
+"""
+def parse_args(args_list):
+    Takes a list of strings from the command prompt and passes them through as arguments
     
     Args:
         args_list (list) : the list of strings from the command prompt
     Returns:
         args (ArgumentParser)
-    """
+    
     
     #For the sake of readability it is important to insert comments all throughout.
     #Complicated operations get a few lines of comments before the operations commence. 
@@ -127,6 +127,7 @@ def main(path):
     args = parser.parse_args(args_list) #We need to parse the list of command line arguments using this object.
 
     return args
+"""
 
 if __name__ == "__main__":
     #If name == main statements are statements that basically ask:
