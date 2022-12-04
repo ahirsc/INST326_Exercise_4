@@ -28,13 +28,12 @@ def parse_address(text:str):
     This function should use regular expressions in order to capture the street, city and state of person in question
     This function will create and return an address object using the street, city and state identified.
     """
-    
-    text = text.split(" ")
-    street = text[2:-3]
-    street = " ".join(street)
-    city = text[-3]
-    state = text[-2]
-    return (street,city,state)
+
+    street = re.search(r"\s(\d+\s.+?(?=\s\w+\s+[A-Z]{2}))",text).group(1)
+    city = re.search(r"\s(\w+?(?=\s+[A-Z]{2}))",text).group(1)
+    state = re.search(r"\s([A-Z]{2})",text).group(1)
+    address = (street,city,state)
+    return address
 
 def parse_email(text:str):
     """
@@ -102,35 +101,6 @@ def main(path):
             
     return employee_list
     
-"""
-def parse_args(args_list):
-    Takes a list of strings from the command prompt and passes them through as arguments
-    
-    Args:
-        args_list (list) : the list of strings from the command prompt
-    Returns:
-        args (ArgumentParser)
-    
-    
-    #For the sake of readability it is important to insert comments all throughout.
-    #Complicated operations get a few lines of comments before the operations commence. 
-    #Non-obvious ones get comments at the end of the line.
-    #For example:
-    #This function uses the argparse module in order to parse command line arguments.
-    
-    parser = argparse.ArgumentParser() #Create an ArgumentParser object.
-    
-    #Then we will add arguments to this parser object.
-    #In this case, we have a required positional argument.
-    #Followed by an optional keyword argument which contains a default value.
-    
-    parser.add_argument('required', type=float, help='This is an example of a required argument.')
-    parser.add_argument('--optional', '-o', type=int, default=12, help='This is an example of an optional argument')  
-    
-    args = parser.parse_args(args_list) #We need to parse the list of command line arguments using this object.
-
-    return args
-"""
 
 if __name__ == "__main__":
     #If name == main statements are statements that basically ask:
@@ -151,7 +121,7 @@ if __name__ == "__main__":
     employee_list = main("people.txt")
     for i in employee_list:
         print("\n\tFirst name:   ",i.first_name)
-        print("\tLast name:   ",i.last_name)
+        print("\tLast name:    ",i.last_name)
         print("\tAddress:      ",i.address.street)
         print("\tCity:         ",i.address.city)
         print("\tState:        ",i.address.state)
