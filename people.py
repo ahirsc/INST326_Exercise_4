@@ -32,8 +32,8 @@ def parse_address(text:str):
     street = re.search(r"\s(\d+\s.+?(?=\s\w+\s+[A-Z]{2}))",text).group(1)
     city = re.search(r"\s(\w+?(?=\s+[A-Z]{2}))",text).group(1)
     state = re.search(r"\s([A-Z]{2})",text).group(1)
-    address = (street,city,state)
-    return address
+  
+    return (street,city,state)
 
 def parse_email(text:str):
     """
@@ -56,7 +56,7 @@ class Address():
         self.street = street
         self.city = city
         self.state = state
-
+        
 class Employee():
     """
     ◦ This class will have 4 attributes (first_name, last_name, address, email).
@@ -74,13 +74,11 @@ class Employee():
         self.first_name = parse_name(text) [0]
         self.last_name = parse_name(text) [1]
     
-        street = parse_address(text) [0]
-        city = parse_address(text) [1]
-        state = parse_address(text) [2]
+        street, city, state = parse_address(text)
+
         self.address = Address(street, city, state)
-        
+
         self.email = parse_email(text)
-        #self.address = parse_address(text)
     
 def main(path):
     """
