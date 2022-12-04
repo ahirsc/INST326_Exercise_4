@@ -10,15 +10,15 @@ Challenges Encountered: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import re
 import sys
 import argparse
-## Do we need parser?
+
 def parse_name(text:str):
     """
     This function will contain one parameter, text, a string representing a single line of the file.
     This function should use regular expressions in order to capture the first name and the last name of the person in question
     This function will return a tuple containing the first and the last names as strings
     """
-    first = re.search(r"(^\w+)",text).group()
-    last = re.search(r"\s(\w+.?(?=\s\d))",text).group()
+    first = re.search(r"(^\w+)",text).group(1)
+    last = re.search(r"\s(\w+.?(?=\s\d))",text).group(1)
     names = (first,last)  
     return names
     
@@ -35,7 +35,7 @@ def parse_address(text:str):
     city = text[-3]
     state = text[-2]
     address = [street,city,state]
-    return address
+    return tuple(address)
 
 def parse_email(text:str):
     """
@@ -73,16 +73,16 @@ class Employee():
     ◦ This class will not have any methods.
     """
     def __init__(self,text):
-        self.firstname = parse_name(text) [0]
-        self.lastname = parse_name(text) [1]
-        """
+        self.first_name = parse_name(text) [0]
+        self.last_name = parse_name(text) [1]
+    
         street = parse_address(text) [0]
         city = parse_address(text) [1]
         state = parse_address(text) [2]
         self.address = Address(street, city, state)
-        """
+        
         self.email = parse_email(text)
-        self.Address = parse_address(text)
+        #self.address = parse_address(text)
     
 def main(path):
     """
@@ -151,11 +151,9 @@ if __name__ == "__main__":
     
     employee_list = main("people.txt")
     for i in employee_list:
-        print("\n\tFirst name:   ",i.firstname)
-        print("\tLast name:   ",i.lastname)
-        print("\tAddress:      ",i.Address)
-        """
+        print("\n\tFirst name:   ",i.first_name)
+        print("\tLast name:   ",i.last_name)
+        print("\tAddress:      ",i.address.street)
         print("\tCity:         ",i.address.city)
         print("\tState:        ",i.address.state)
-        """
         print("\tEmail:        ",i.email)
