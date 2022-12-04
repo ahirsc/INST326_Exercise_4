@@ -34,8 +34,7 @@ def parse_address(text:str):
     street = " ".join(street)
     city = text[-3]
     state = text[-2]
-    address = [street,city,state]
-    return tuple(address)
+    return (street,city,state)
 
 def parse_email(text:str):
     """
